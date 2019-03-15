@@ -48,6 +48,10 @@
                 return parseInt(this.screenWidth/210)
             }
         },
+        create(){
+            this.screenWidth=window.innerWidth
+            this.cols=parseInt(this.screenWidth/210)
+        },
         watch:{
           cols:function () {
               this.dosort(this.$refs.imgs)
@@ -55,7 +59,11 @@
         },
         mounted(){
             const nodelist=this.$refs.imgs;
-            this.dosort(nodelist);
+            setTimeout(function () {
+                _this.screenWidth=window.innerWidth
+                _this.cols=parseInt(this.screenWidth/210)
+                _this.dosort(nodelist)
+            },100)
             var _this=this  //this对象无法传入window中 需要定义另一个变量代替
             window.onresize=function() {
                 _this.screenWidth=window.innerWidth
