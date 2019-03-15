@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import cover from './views/cover'
-import index from './views/index'
+import waterfall from './components/waterfall'
 
 Vue.use(Router)
 
@@ -12,8 +12,8 @@ export default new Router({
           component:cover
       },
       {
-          path:'/index',
-          component:index
+          path:'/waterfall',
+          component:waterfall
       }
   ]
 })

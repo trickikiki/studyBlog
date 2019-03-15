@@ -9,7 +9,7 @@
             </div>
             <ul class="nav">
                 <li>
-                    <router-link to="/index"><img src="../assets/_ionicons_svg_md-home.svg" alt=""></router-link>
+                    <router-link to="/waterfall"><img src="../assets/_ionicons_svg_md-home.svg" alt=""></router-link>
                 </li>
             </ul>
         </div>

@@ -32,6 +32,13 @@
                     {src:require('../assets/22.jpg')},
                     {src:require('../assets/23.jpg')},
                     {src:require('../assets/24.jpg')},
+                    {src:require('../assets/25.jpg')},
+                    {src:require('../assets/25.jpg')},
+                    {src:require('../assets/26.jpg')},
+                    {src:require('../assets/27.jpg')},
+                    {src:require('../assets/28.jpg')},
+                    {src:require('../assets/29.jpg')},
+                    {src:require('../assets/30.jpg')}
                 ],
                 screenWidth:document.body.clientWidth
             }
