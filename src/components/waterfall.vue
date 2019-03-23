@@ -1,10 +1,16 @@
 <template>
-    <div id="index">
+    <div id="waterfall">
+        <div id="index">
             <img v-for="(pic,index) in pics" :src="pic.src" :key="index" ref="imgs">
+        </div>
+        <router-view></router-view>
+        <bottomMenu @update="addimg"></bottomMenu>
     </div>
 </template>
 <script>
+    import bottomMenu from './bottomMenu'
     export default {
+        components:{bottomMenu},
         data(){
             return{
                 pics:[
@@ -40,12 +46,18 @@
                     {src:require('../assets/29.jpg')},
                     {src:require('../assets/30.jpg')}
                 ],
-                screenWidth:document.body.clientWidth
+                screenWidth:window.screenWidth,
+                //cols:parseInt(window.innerWidth/210)
             }
         },
         computed:{
-            cols(){
-                return parseInt(this.screenWidth/210)
+            cols:{
+                get:function () {
+                    return parseInt(this.screenWidth/210)
+                }
+                /*set:function (val) {
+                    this.screenWidth=val*210
+                }*/
             }
         },
         create(){
@@ -53,12 +65,14 @@
             this.cols=parseInt(this.screenWidth/210)
         },
         watch:{
-          cols:function () {
+          pics:function () {
+              this.screenWidth=window.innerWidth
+              this.cols=parseInt(this.screenWidth/210)
               this.dosort(this.$refs.imgs)
           }
         },
         mounted(){
-            const nodelist=this.$refs.imgs;
+            const nodelist = this.$refs.imgs
             setTimeout(function () {
                 _this.screenWidth=window.innerWidth
                 _this.cols=parseInt(this.screenWidth/210)
@@ -71,7 +85,15 @@
                 _this.dosort(nodelist)
             }
         },
+        updated(){
+            //this.dosort(this.$refs.imgs)
+        },
         methods:{
+            addimg(imgsrc) {
+                let img = {src: imgsrc};
+                this.pics.push(img);
+                this.dosort(this.$refs.imgs)
+            },
             dosort(nodelist){
                 let arr=new Array();
                 for(let i=0;i<nodelist.length;i++)

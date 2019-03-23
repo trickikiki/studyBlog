@@ -1,7 +1,7 @@
 <template>
     <div id="index">
         <div class="banner">
-            <div class="inner1">
+            <div class="inner1" ref="font">
                 TRICKIKIKI'S WORK
             </div>
             <div class="inner2">
@@ -19,7 +19,10 @@
 
 <script>
     export default {
-        name: "index"
+        name: "index",
+        /*mounted(){
+            this.$refs.font.style.font-size=window.innerWidth/
+        }*/
     }
 </script>
 
@@ -39,7 +42,7 @@
         margin-right: auto;
         height: 4rem;
         line-height: 4rem;
-        font-size: x-large;
+        font-size: 90%;
     }
     .inner2{
         width: 35%;
