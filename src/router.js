@@ -15,12 +15,6 @@ export default new Router({
       {
           path:'/waterfall',
           component:waterfall,
-          children:[
-              {
-                  path:'upload',
-                  component:upload
-              }
-          ]
       }
   ]
 })

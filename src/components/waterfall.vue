@@ -1,52 +1,58 @@
 <template>
     <div id="waterfall">
         <div id="index">
-            <img v-for="(pic,index) in pics" :src="pic.src" :key="index" ref="imgs">
+            <img v-for="(pic,index) in pics" :src="pic" :key="index" ref="imgs">
         </div>
-        <router-view></router-view>
-        <bottomMenu @update="addimg"></bottomMenu>
+        <myupload v-if="showupload" @hidden="hidden"></myupload>
+        <bottomMenu @update="showupload=!showupload" @fetch="fetch"></bottomMenu>
     </div>
 </template>
 <script>
     import bottomMenu from './bottomMenu'
+    import myupload from './upload'
     export default {
-        components:{bottomMenu},
+        components:{
+            bottomMenu,
+            myupload
+        },
         data(){
             return{
+                //pics:[{src:require('../assets/1.jpg')}],
                 pics:[
-                    {src:require('../assets/1.jpg')},
-                    {src:require('../assets/2.jpg')},
-                    {src:require('../assets/3.jpg')},
-                    {src:require('../assets/4.jpg')},
-                    {src:require('../assets/5.jpg')},
-                    {src:require('../assets/6.jpg')},
-                    {src:require('../assets/7.jpg')},
-                    {src:require('../assets/8.jpg')},
-                    {src:require('../assets/9.jpg')},
-                    {src:require('../assets/10.jpg')},
-                    {src:require('../assets/11.jpg')},
-                    {src:require('../assets/12.jpg')},
-                    {src:require('../assets/13.jpg')},
-                    {src:require('../assets/14.jpg')},
-                    {src:require('../assets/15.jpg')},
-                    {src:require('../assets/16.jpg')},
-                    {src:require('../assets/17.jpg')},
-                    {src:require('../assets/18.jpg')},
-                    {src:require('../assets/19.png')},
-                    {src:require('../assets/20.jpg')},
-                    {src:require('../assets/21.jpg')},
-                    {src:require('../assets/22.jpg')},
-                    {src:require('../assets/23.jpg')},
-                    {src:require('../assets/24.jpg')},
-                    {src:require('../assets/25.jpg')},
-                    {src:require('../assets/25.jpg')},
-                    {src:require('../assets/26.jpg')},
-                    {src:require('../assets/27.jpg')},
-                    {src:require('../assets/28.jpg')},
-                    {src:require('../assets/29.jpg')},
-                    {src:require('../assets/30.jpg')}
+                    require('../assets/1.jpg'),
+                    require('../assets/2.jpg'),
+                    require('../assets/3.jpg'),
+                    require('../assets/4.jpg'),
+                    require('../assets/5.jpg'),
+                    require('../assets/6.jpg'),
+                    require('../assets/7.jpg'),
+                    require('../assets/8.jpg'),
+                    require('../assets/9.jpg'),
+                    require('../assets/10.jpg'),
+                    require('../assets/11.jpg'),
+                    require('../assets/12.jpg'),
+                    require('../assets/13.jpg'),
+                    require('../assets/14.jpg'),
+                    require('../assets/15.jpg'),
+                    require('../assets/16.jpg'),
+                    require('../assets/17.jpg'),
+                    require('../assets/18.jpg'),
+                    require('../assets/19.png'),
+                    require('../assets/20.jpg'),
+                    require('../assets/21.jpg'),
+                    require('../assets/22.jpg'),
+                    require('../assets/23.jpg'),
+                    require('../assets/24.jpg'),
+                    require('../assets/25.jpg'),
+                    require('../assets/25.jpg'),
+                    require('../assets/26.jpg'),
+                    require('../assets/27.jpg'),
+                    require('../assets/28.jpg'),
+                    require('../assets/29.jpg'),
+                    require('../assets/30.jpg')
                 ],
-                screenWidth:window.screenWidth,
+                screenWidth: window.screenWidth,
+                showupload: false
                 //cols:parseInt(window.innerWidth/210)
             }
         },
@@ -86,14 +92,33 @@
             }
         },
         updated(){
-            //this.dosort(this.$refs.imgs)
+            this.dosort(this.$refs.imgs)
         },
         methods:{
-            addimg(imgsrc) {
-                let img = {src: imgsrc};
-                this.pics.push(img);
-                this.dosort(this.$refs.imgs)
+            hidden(){
+                this.showupload=!this.showupload
             },
+            fetch(){
+                this.$http.post('/getimg',{}).
+                then((res)=>{
+                    for(let i of res.data)
+                    {
+                        let temp='/static/'+i
+                        if (!this.pics.includes(temp))
+                        {
+                            this.pics.push(temp)
+                        }
+                    }
+                }).
+                catch((err)=>{
+                    console.log('get img fail')
+                })
+            },
+            // addimg(imgsrc) {
+            //     let img = {src: imgsrc};
+            //     this.pics.push(img);
+            //     this.dosort(this.$refs.imgs)
+            // },
             dosort(nodelist){
                 let arr=new Array();
                 for(let i=0;i<nodelist.length;i++)

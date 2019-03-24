@@ -6,8 +6,7 @@
                     class="upload-demo"
                     action="/upload"
                     :file-list="fileList"
-                    list-type="picture"
-                    drap="true">
+                    list-type="picture">
                 <el-button size="small" type="primary" style="top: 5px;">点击上传</el-button>
             </el-upload>
         </div>
@@ -26,7 +25,7 @@
         methods: {
             exit(){
                 this.filelist=[];
-                this.$router.go(-1);
+                this.$emit('hidden')
             },
         }
     }

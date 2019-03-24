@@ -1,8 +1,9 @@
 <template>
     <div id="menu">
         <div class="backGround">
-            <el-input placeholder="请输入图片链接" v-model="imgsrc" clearable class="text"></el-input>
+            <!--<el-input placeholder="请输入图片链接" v-model="imgsrc" clearable class="text"></el-input>-->
             <el-button type="primary" @click="insert" class="btn">添加图片</el-button>
+            <el-button type="primary" @click="fetch" class="btn">拉取图片</el-button>
         </div>
     </div>
 </template>
@@ -18,6 +19,9 @@
         methods:{
             insert(){
                 this.$emit('update',this.imgsrc);
+            },
+            fetch(){
+                this.$emit('fetch')
             }
         }
     }
