@@ -1,7 +1,7 @@
 <template>
     <div id="upload">
         <div class="box">
-            <el-button class="exit" type="danger" circle  size="small" @click="exit">X</el-button>
+            <el-button class="exit" type="danger" circle size="small" @click="exit">X</el-button>
             <el-upload
                     class="upload-demo"
                     action="/upload"
@@ -44,6 +44,9 @@
         transform: translate(-50%,-50%);
         left: 50%;
         background-color: white;
+        @media screen and (max-width: 500px){
+            width: 60%;
+        }
         width: 700px;
         .exit{
             position: absolute;

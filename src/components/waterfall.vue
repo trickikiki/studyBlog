@@ -78,18 +78,27 @@
           }
         },
         mounted(){
+            var _this=this //this对象无法传入window中 需要定义另一个变量代替
             const nodelist = this.$refs.imgs
-            setTimeout(function () {
-                _this.screenWidth=window.innerWidth
-                _this.cols=parseInt(this.screenWidth/210)
-                _this.dosort(nodelist)
-            },100)
-            var _this=this  //this对象无法传入window中 需要定义另一个变量代替
+            _this.timer=false
             window.onresize=function() {
+                if(_this.timer==false)
+                {
+                    _this.timer=true
+                    var throttle=setTimeout(function () {
+                        _this.screenWidth=window.innerWidth
+                        _this.cols=parseInt(this.screenWidth/210)
+                        _this.dosort(nodelist)
+                        _this.timer=false
+                    },200)
+                }
+            }
+            var init=setTimeout(function () {
                 _this.screenWidth=window.innerWidth
                 _this.cols=parseInt(this.screenWidth/210)
                 _this.dosort(nodelist)
-            }
+                console.log('init')
+            },200)
         },
         updated(){
             this.dosort(this.$refs.imgs)
